@@ -464,12 +464,21 @@ func (m Model) DidSelectDisabledFile(msg tea.Msg) (bool, string) {
 	return false, ""
 }
 
+<<<<<<< HEAD
 func (m Model) GetSelectedFile() (fs.FileInfo, error) {
 	f, err := m.files[m.selected].Info()
 	if err != nil {
 		return nil, err
 	}
 	return f, nil
+=======
+func (m Model) GetSelectedFile() (string, error) {
+	f, err := m.files[m.selected].Info()
+	if err != nil {
+		return "", err
+	}
+	return f.Name(), nil
+>>>>>>> 4c45881 (added method to get selected file)
 }
 
 func (m Model) didSelectFile(msg tea.Msg) (bool, string) {
