@@ -3,6 +3,7 @@
 package filepicker
 
 import (
+	"errors"
 	"fmt"
 	"io/fs"
 	"os"
@@ -465,6 +466,9 @@ func (m Model) DidSelectDisabledFile(msg tea.Msg) (bool, string) {
 }
 
 func (m Model) GetSelectedFile() (fs.FileInfo, error) {
+	if len(m.files) == 0 {
+		return nil, errors.New("empty dir")
+	}
 	f, err := m.files[m.selected].Info()
 	if err != nil {
 		return nil, err
