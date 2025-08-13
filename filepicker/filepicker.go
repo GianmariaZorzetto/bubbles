@@ -4,6 +4,7 @@ package filepicker
 
 import (
 	"fmt"
+	"io/fs"
 	"os"
 	"path/filepath"
 	"sort"
@@ -463,12 +464,12 @@ func (m Model) DidSelectDisabledFile(msg tea.Msg) (bool, string) {
 	return false, ""
 }
 
-func (m Model) GetSelectedFile() (string, error) {
+func (m Model) GetSelectedFile() (fs.FileInfo, error) {
 	f, err := m.files[m.selected].Info()
 	if err != nil {
-		return "", err
+		return nil, err
 	}
-	return f.Name(), nil
+	return f, nil
 }
 
 func (m Model) didSelectFile(msg tea.Msg) (bool, string) {
