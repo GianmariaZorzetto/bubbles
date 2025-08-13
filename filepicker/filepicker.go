@@ -151,7 +151,6 @@ type Model struct {
 	DirAllowed      bool
 	FileAllowed     bool
 
-	FileSelected  string
 	selected      int
 	selectedStack stack
 
@@ -462,6 +461,14 @@ func (m Model) DidSelectDisabledFile(msg tea.Msg) (bool, string) {
 		return true, path
 	}
 	return false, ""
+}
+
+func (m Model) GetSelectedFile() (string, error) {
+	f, err := m.files[m.selected].Info()
+	if err != nil {
+		return "", err
+	}
+	return f.Name(), nil
 }
 
 func (m Model) didSelectFile(msg tea.Msg) (bool, string) {
